@@ -2,7 +2,7 @@ import os
 import math
 from numpy import log as ln
 
-def load_training_data(vocab, directory):
+def loadData(vocab, directory):
     """ Create the list of dictionaries """
     top_level = os.listdir(directory)
     dataset = []
@@ -19,7 +19,7 @@ def load_training_data(vocab, directory):
             dataset.append({'label': label, 'bow': bow})
     return dataset
 
-def create_vocabulary(directory, cutoff):
+def findVocab(directory, cutoff):
     """ Create a vocabulary from the training directory
         return a sorted vocabulary list
     """
@@ -39,7 +39,7 @@ def create_vocabulary(directory, cutoff):
                         vocab[word] += 1
     return sorted([word for word in vocab if vocab[word] >= cutoff])
 
-def create_bow(vocab, filepath):
+def findBagOfWords(vocab, filepath):
     """ Create a single dictionary for the data
         Note: label may be None
     """
@@ -71,7 +71,7 @@ def create_bow(vocab, filepath):
                     
     return bow
 
-def prior(training_data, label_list):
+def findPrior(training_data, label_list):
     """ return the prior probability of the label in the training set
         => frequency of DOCUMENTS
     """    
@@ -95,7 +95,7 @@ def prior(training_data, label_list):
 
     return logprob
 
-def p_word_given_label(vocab, training_data, label):
+def findProbWordLabel(vocab, training_data, label):
     """ return the class conditional probability of label over all words, with smoothing """
 
     smooth = 1 # smoothing factor
@@ -129,7 +129,7 @@ def p_word_given_label(vocab, training_data, label):
     return word_prob
 
 
-def train(training_directory, cutoff):
+def tarinData(training_directory, cutoff):
     """ return a dictionary formatted as follows:
             {
              'vocabulary': <the training set vocabulary>,
@@ -153,7 +153,7 @@ def train(training_directory, cutoff):
             
     return retval
 
-def classify(model, filepath):
+def testData(model, filepath):
     """ return a dictionary formatted as follows:
             {
              'predicted y': <'2016' or '2020'>,
